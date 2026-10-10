@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校園冒險王國 - 75吋電視牆展示系統</title>
+  <title>校園冒險王國 - 耀西手作世界電視牆展示系統</title>
   <style>
     /* ==========================================
-       1. 全局設定 & 耀西手工世界 (Crafted World) 風格
+       1. 全局設定：耀西的手工世界 (Yoshi's Crafted World)
        ========================================== */
     * {
       box-sizing: border-box;
@@ -19,31 +19,58 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background-color: #81d4fa;
-      /* 布紋/布藝背景質感 */
+      /* 麻布/瓦楞紙手作風格背景 */
+      background-color: #4bacd2;
       background-image: 
-        radial-gradient(#b3e5fc 15%, transparent 16%),
-        radial-gradient(#b3e5fc 15%, transparent 16%);
-      background-size: 60px 60px;
-      background-position: 0 0, 30px 30px;
+        radial-gradient(rgba(255, 255, 255, 0.25) 18%, transparent 19%),
+        radial-gradient(rgba(255, 255, 255, 0.25) 18%, transparent 19%);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
       color: #3e2723;
       display: flex;
       flex-direction: column;
       user-select: none;
+      position: relative;
     }
 
-    /* 頁首：手作布條與補丁風格 */
+    /* 手作飄浮雲朵背景 */
+    .cloud-bg {
+      position: absolute;
+      background: #fffdf0;
+      border: 3px solid #8d6e63;
+      border-radius: 50px;
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+      opacity: 0.85;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* 頁首：手工布條與彩色紙膠帶風格 */
     header {
       height: 110px;
       padding: 0 40px;
-      background: #fff8e1;
+      background: #fff6d6;
       border-bottom: 6px dashed #795548;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 10;
       position: relative;
+    }
+
+    /* 手作彩色紙膠帶 (Washi Tape) */
+    .washi-tape-header {
+      position: absolute;
+      top: -12px;
+      left: 180px;
+      width: 120px;
+      height: 28px;
+      background: rgba(255, 112, 67, 0.75);
+      transform: rotate(-3deg);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      border-left: 3px dashed rgba(255,255,255,0.5);
+      border-right: 3px dashed rgba(255,255,255,0.5);
     }
 
     .header-title {
@@ -53,31 +80,38 @@
     }
 
     .header-title h1 {
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       font-weight: 900;
       color: #d84315;
-      text-shadow: 2px 2px 0px #ffcc80;
+      text-shadow: 3px 3px 0px #ffe0b2, 5px 5px 0px #5d4037;
       letter-spacing: 2px;
     }
 
     .scene-badge {
       background: #ffb74d;
-      color: #5d4037;
-      border: 3px dashed #fff;
-      padding: 6px 20px;
-      border-radius: 30px;
+      color: #4e342e;
+      border: 3px solid #5d4037;
+      padding: 6px 22px;
+      border-radius: 25px;
       font-size: 1.4rem;
-      font-weight: bold;
-      box-shadow: 3px 3px 0px #8d6e63;
+      font-weight: 900;
+      box-shadow: 4px 4px 0px #5d4037;
+      outline: 2px dashed #fff;
+      outline-offset: -5px;
     }
 
     .ticker-status {
       display: flex;
       align-items: center;
       gap: 15px;
-      font-size: 1.1rem;
-      font-weight: bold;
+      font-size: 1.15rem;
+      font-weight: 900;
       color: #4e342e;
+      background: #ffe0b2;
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 3px solid #8d6e63;
+      box-shadow: 3px 3px 0px #5d4037;
     }
 
     .pulse-dot {
@@ -91,27 +125,28 @@
 
     @keyframes pulse {
       0% { transform: scale(0.8); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 1; }
       100% { transform: scale(0.8); opacity: 0.8; }
     }
 
-    /* 主舞台：16:9 比例分頁展示 */
+    /* 主舞台：16:9 展示區 */
     main {
       flex: 1;
       position: relative;
-      padding: 25px 35px;
+      padding: 20px 30px;
       overflow: hidden;
+      z-index: 1;
     }
 
     .scene {
       position: absolute;
-      top: 25px;
-      left: 35px;
-      right: 35px;
-      bottom: 25px;
+      top: 20px;
+      left: 30px;
+      right: 30px;
+      bottom: 20px;
       opacity: 0;
-      transform: scale(0.98);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(15px) scale(0.98);
+      transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
       pointer-events: none;
       display: flex;
       flex-direction: column;
@@ -119,128 +154,150 @@
 
     .scene.active {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0) scale(1);
       pointer-events: auto;
     }
 
-    /* 瓦楞紙與手作卡片容器 Grid (2x4 排版，共 8 位學生/頁) */
+    /* 瓦楞紙與手作卡片容器 Grid (2x4 排版) */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      gap: 22px;
+      gap: 20px;
       height: 100%;
       width: 100%;
     }
 
-    /* 瓦楞紙卡片基底 */
+    /* 耀西瓦楞紙手作卡片基底 (Crafted Cardboard) */
     .crafted-card {
-      background: #fff8e7;
-      border: 4px dashed #8d6e63;
-      border-radius: 24px;
-      box-shadow: 8px 8px 0px #5d4037, inset 0 0 12px rgba(0, 0, 0, 0.05);
-      padding: 18px;
+      background: #fffdf5;
+      border: 4px solid #795548;
+      border-radius: 20px;
+      box-shadow: 
+        8px 8px 0px #4e342e,
+        12px 12px 15px rgba(0, 0, 0, 0.2);
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
+      /* 模擬手縫虛線邊緣 */
+      outline: 2px dashed #bcaaa4;
+      outline-offset: -7px;
     }
 
-    /* 手作鈕扣與鈕扣孔裝飾 */
-    .crafted-card::before {
-      content: "●";
+    /* 卡片紙膠帶裝飾 */
+    .crafted-card::after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      right: 25px;
+      width: 60px;
+      height: 20px;
+      background: rgba(129, 199, 132, 0.8);
+      transform: rotate(4deg);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-left: 2px dashed rgba(255,255,255,0.6);
+      border-right: 2px dashed rgba(255,255,255,0.6);
+    }
+
+    /* 手作鈕扣 */
+    .button-decor {
       position: absolute;
       top: 10px;
-      right: 15px;
-      color: #ff7043;
-      font-size: 1.2rem;
-      text-shadow: 1px 1px 0px #b23c17;
+      left: 12px;
+      width: 16px;
+      height: 16px;
+      background: #ff7043;
+      border-radius: 50%;
+      border: 2px solid #d84315;
+      box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
-    /* 學生基本資料抬頭 (75吋電視牆專用大字體) */
+    /* 學生基本資料抬頭 (75吋電視大字體) */
     .student-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       border-bottom: 3px dotted #a1887f;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
+      padding-left: 18px;
     }
 
     .student-name {
-      font-size: 2.3rem; /* 大字體 ~38px */
+      font-size: 2.2rem; /* 大字體 ~36px */
       font-weight: 900;
       color: #3e2723;
+      text-shadow: 1px 1px 0px #fff;
     }
 
     .student-class {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #795548;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #5d4037;
       background: #ffe0b2;
       padding: 2px 10px;
-      border-radius: 12px;
+      border-radius: 10px;
+      border: 2px solid #8d6e63;
     }
 
     /* ==========================================
-       2. 活動 1：小豬撲滿 (金幣村莊)
+       2. 活動 1：小豬撲滿 (手縫不織布小豬)
        ========================================== */
     .piggy-content {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-top: 10px;
+      gap: 12px;
+      margin-top: 6px;
     }
 
     .piggy-container {
       position: relative;
-      width: 130px;
-      height: 110px;
+      width: 125px;
+      height: 105px;
       flex-shrink: 0;
     }
 
     .piggy-svg {
       width: 100%;
       height: 100%;
+      filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.15));
     }
 
     .piggy-data {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-
-    .data-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
+      gap: 6px;
     }
 
     .points-highlight {
-      font-size: 2.8rem; /* 主要數字 ~48px */
+      font-size: 2.6rem; /* 主要數字 ~44px */
       font-weight: 900;
       color: #e65100;
+      text-shadow: 1px 1px 0px #fff;
     }
 
     .money-badge {
       background: #4caf50;
       color: white;
-      font-weight: 800;
-      font-size: 1.2rem;
-      padding: 4px 12px;
-      border-radius: 16px;
-      border: 2px solid #fff;
-      box-shadow: 2px 2px 0px #2e7d32;
+      font-weight: 900;
+      font-size: 1.15rem;
+      padding: 4px 10px;
+      border-radius: 14px;
+      border: 2px solid #2e7d32;
+      box-shadow: 2px 2px 0px #1b5e20;
+      text-align: center;
     }
 
     /* ==========================================
-       3. 活動 2：百閱挑戰 (百閱山脈)
+       3. 活動 2：百閱挑戰 (木紋積木與剪紙山)
        ========================================== */
     .reading-content {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 8px;
+      gap: 6px;
+      margin-top: 6px;
     }
 
     .mountain-progress-bar {
@@ -248,21 +305,23 @@
       height: 24px;
       background: #d7ccc8;
       border-radius: 12px;
-      border: 2px solid #6d4c41;
+      border: 3px solid #5d4037;
       overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .mountain-fill {
       height: 100%;
-      background: linear-gradient(90deg, #81c784, #4caf50);
-      transition: width 1s ease-in-out;
+      background: linear-gradient(90deg, #81c784, #388e3c);
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .flag-100 {
       position: absolute;
-      right: 5px;
+      right: 6px;
       top: -2px;
-      font-size: 1rem;
+      font-size: 0.95rem;
+      font-weight: 900;
     }
 
     .grade-books-grid {
@@ -274,32 +333,33 @@
     }
 
     .grade-pill {
-      background: #ffffff;
-      border: 2px solid #bcaaa4;
+      background: #fff8e1;
+      border: 2px solid #8d6e63;
       border-radius: 8px;
       padding: 2px 0;
+      box-shadow: 1px 2px 0px #5d4037;
     }
 
     .grade-title {
       font-size: 0.75rem;
-      color: #8d6e63;
-      font-weight: bold;
+      color: #795548;
+      font-weight: 900;
     }
 
     .grade-num {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 900;
-      color: #3e2723;
+      color: #2e7d32;
     }
 
     /* ==========================================
-       4. 活動 3：健康儲蓄 (運動競技場 - 雙軌進度)
+       4. 活動 3：健康儲蓄 (雙軌手作麻繩與飛盤)
        ========================================== */
     .health-tracks {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
+      gap: 8px;
+      margin-top: 6px;
     }
 
     .track-item {
@@ -312,448 +372,39 @@
       display: flex;
       justify-content: space-between;
       font-size: 0.95rem;
-      font-weight: bold;
+      font-weight: 900;
+      color: #4e342e;
     }
 
     .track-bar-bg {
-      height: 16px;
+      height: 18px;
       background: #e0e0e0;
-      border-radius: 8px;
-      border: 2px solid #757575;
+      border-radius: 10px;
+      border: 2.5px solid #5d4037;
       overflow: hidden;
       position: relative;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
     }
 
     .track-bar-fill {
       height: 100%;
-      transition: width 1s ease-in-out;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .fill-rope { background: linear-gradient(90deg, #ff8a65, #ff5722); }
-    .fill-frisbee { background: linear-gradient(90deg, #64b5f6, #1e88e5); }
+    .fill-rope { background: linear-gradient(90deg, #ff8a65, #f4511e); }
+    .fill-frisbee { background: linear-gradient(90deg, #64b5f6, #1976d2); }
 
     .next-target-text {
       font-size: 0.85rem;
       color: #d84315;
-      font-weight: 800;
+      font-weight: 900;
       text-align: right;
     }
 
     /* ==========================================
-       5. 總覽與成就榮譽榜特別頁
+       5. 總覽區 (Overview Grid)
        ========================================== */
     .overview-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      height: 100%;
-    }
-
-    .overview-box {
-      background: #fff8e7;
-      border: 5px dashed #5d4037;
-      border-radius: 30px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      box-shadow: 10px 10px 0px #3e2723;
-    }
-
-    .overview-icon { font-size: 4.5rem; margin-bottom: 10px; }
-    .overview-title { font-size: 2rem; font-weight: 900; color: #5d4037; }
-    .overview-value { font-size: 3.8rem; font-weight: 900; color: #e65100; margin: 10px 0; }
-
-    /* 頁尾：跑馬燈公告 */
-    footer {
-      height: 50px;
-      background: #3e2723;
-      color: #ffe0b2;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      font-size: 1.3rem;
-      font-weight: bold;
-      border-top: 4px solid #ffb74d;
-    }
-
-    .marquee-text {
-      white-space: nowrap;
-      animation: marquee 25s linear infinite;
-      padding-left: 100%;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- 全域手作 SVG 剪裁與定義 -->
-  <svg style="position: absolute; width: 0; height: 0;" version="1.1">
-    <defs>
-      <clipPath id="piggy-shape" clipPathUnits="userSpaceOnUse">
-        <path d="M 30,25 C 40,10 60,10 70,22 C 80,10 100,10 110,25 C 130,25 145,45 145,70 C 152,70 158,78 158,85 C 158,92 152,98 145,98 C 138,110 120,120 105,120 L 105,128 L 85,128 L 85,120 L 55,120 L 55,128 L 35,128 L 35,115 C 20,110 10,95 10,75 C 10,50 20,25 30,25 Z" />
-      </clipPath>
-      <linearGradient id="gold-fill" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#ff6f00" />
-        <stop offset="100%" stop-color="#ffee58" />
-      </linearGradient>
-    </defs>
-  </svg>
-
-  <!-- 頁首 Header -->
-  <header>
-    <div class="header-title">
-      <h1>🎮 校園冒險王國</h1>
-      <div id="scene-tag" class="scene-badge">校園任務總覽</div>
-    </div>
-    <div class="ticker-status">
-      <div class="pulse-dot"></div>
-      <span id="page-indicator">頁次：1 / 1</span>
-      <span style="margin-left: 15px;">🔄 30s 自動同步</span>
-      <span id="last-update" style="color: #8d6e63; font-size: 0.95rem;"></span>
-    </div>
-  </header>
-
-  <!-- 主展示舞台 (Carousel Scenes) -->
-  <main>
-    <!-- 畫面 0：校園任務總覽 -->
-    <div id="scene-0" class="scene active">
-      <div class="overview-grid">
-        <div class="overview-box">
-          <div class="overview-icon">🐷</div>
-          <div class="overview-title">全校小豬金幣池</div>
-          <div id="total-savings" class="overview-value">$0 元</div>
-          <p style="font-size: 1.2rem; font-weight: bold; color: #795548;">兌換標準：1 點 = $4 元</p>
-        </div>
-        <div class="overview-box">
-          <div class="overview-icon">📚</div>
-          <div class="overview-title">全校閱讀累積量</div>
-          <div id="total-books" class="overview-value">0 本</div>
-          <p style="font-size: 1.2rem; font-weight: bold; color: #795548;">攻頂 100 本人數：<span id="heroes-count">0</span> 人</p>
-        </div>
-        <div class="overview-box">
-          <div class="overview-icon">🏃</div>
-          <div class="overview-title">健康運動累積</div>
-          <div id="total-sports" class="overview-value">0 次</div>
-          <p style="font-size: 1.2rem; font-weight: bold; color: #795548;">跳繩 + 飛盤全校總計</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 畫面 1：小豬撲滿排行榜 -->
-    <div id="scene-1" class="scene">
-      <div class="card-grid" id="grid-piggy"></div>
-    </div>
-
-    <!-- 畫面 2：百閱挑戰山脈 -->
-    <div id="scene-2" class="scene">
-      <div class="card-grid" id="grid-reading"></div>
-    </div>
-
-    <!-- 畫面 3：健康儲蓄競技場 -->
-    <div id="scene-3" class="scene">
-      <div class="card-grid" id="grid-health"></div>
-    </div>
-
-    <!-- 畫面 4：攻頂成就榮譽榜 -->
-    <div id="scene-4" class="scene">
-      <div class="card-grid" id="grid-honor"></div>
-    </div>
-  </main>
-
-  <!-- 頁尾：跑馬燈 -->
-  <footer>
-    <div class="marquee-text" id="marquee-content">
-      🌟 歡迎來到校園冒險王國！小豬撲滿兌換比率：1 點＝$4 元 ｜ 📚 百閱挑戰衝刺中：累積滿 100 本即刻插旗攻頂！ ｜ 🏃 健康儲蓄：跳繩目標 1,000 次、飛盤目標 9,000 次！加油！
-    </div>
-  </footer>
-
-  <!-- ==========================================
-       6. JavaScript 邏輯 & 試算表連動
-       ========================================== -->
-  <script>
-    /**
-     * =========================================================================
-     * 【Google 試算表設定說明】
-     * 1. 建立 Google 試算表，第 1 列欄位名稱請設定：
-     *    [姓名], [班級], [點數], [一階], [二階], [三階], [四階], [五階], [六階], [跳繩次數], [飛盤次數]
-     * 2. 「檔案」➔「分享」➔「發布到網路」➔ 選擇 CSV 格式並複製網址。
-     * 3. 貼在下方 CSV_URL 變數中。
-     * =========================================================================
-     */
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9CEQU5iII381HNhvYdqMo3BGn89t2iSPPA1ZKuM6v4FOPu0k8f-P0wE8oGd6njYgs0AvItdf__iqq/pub?output=csv';
-    const REWARD_RATE = 4; // 1點 = 4元 (可自由更動)
-    const CAROUSEL_INTERVAL_MS = 15000; // 每頁/場面停留 15 秒
-    const FETCH_INTERVAL_MS = 30000;    // 每 30 秒自動向試算表同步資料
-
-    // 預設示範資料 (當尚未設定 CSV_URL 時自動啟用)
-    const MOCK_DATA = [
-      { name: "林志豪", className: "3年1班", points: 145, books: [12, 18, 15, 20, 25, 15], rope: 1050, frisbee: 9200 },
-      { name: "張小晴", className: "3年2班", points: 120, books: [10, 15, 12, 10, 8, 5], rope: 850, frisbee: 6400 },
-      { name: "陳美玲", className: "4年1班", points: 98,  books: [15, 20, 22, 18, 10, 2], rope: 620, frisbee: 3100 },
-      { name: "黃雅婷", className: "2年3班", points: 85,  books: [20, 25, 10, 5, 0, 0],   rope: 790, frisbee: 5800 },
-      { name: "李冠宇", className: "5年2班", points: 72,  books: [8, 12, 15, 20, 22, 18], rope: 1200, frisbee: 9500 },
-      { name: "蔡佩珊", className: "1年1班", points: 60,  books: [25, 10, 0, 0, 0, 0],    rope: 450, frisbee: 2800 },
-      { name: "吳家豪", className: "6年1班", points: 110, books: [10, 10, 15, 20, 25, 25], rope: 950, frisbee: 7200 },
-      { name: "許淑芬", className: "3年3班", points: 45,  books: [12, 14, 8, 2, 0, 0],    rope: 580, frisbee: 1500 },
-      { name: "鄭宇翔", className: "4年2班", points: 130, books: [15, 15, 20, 20, 15, 10], rope: 880, frisbee: 8900 }
-    ];
-
-    let studentsData = [];
-    let currentSceneIndex = 0;
-    let currentSubPage = 0;
-    const STUDENTS_PER_PAGE = 8; // 75吋電視最舒適的單頁人數
-
-    // 試算表解析
-    function parseCSV(csvText) {
-      const lines = csvText.trim().split(/\r\n|\n/);
-      if (lines.length < 2) return null;
-      const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-      
-      const getIdx = (key) => headers.findIndex(h => h.includes(key));
-      const nameIdx = getIdx('姓名');
-      const classIdx = getIdx('班級');
-      const ptsIdx = getIdx('點數');
-      const ropeIdx = getIdx('跳繩');
-      const frisbeeIdx = getIdx('飛盤');
-
-      if (nameIdx === -1) return null;
-
-      return lines.slice(1).map(line => {
-        const row = line.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
-        const books = [
-          parseInt(row[getIdx('一階')]) || 0,
-          parseInt(row[getIdx('二階')]) || 0,
-          parseInt(row[getIdx('三階')]) || 0,
-          parseInt(row[getIdx('四階')]) || 0,
-          parseInt(row[getIdx('五階')]) || 0,
-          parseInt(row[getIdx('六階')]) || 0
-        ];
-        return {
-          name: row[nameIdx] || '未命名',
-          className: row[classIdx] || '學生',
-          points: parseInt(row[ptsIdx]) || 0,
-          books: books,
-          rope: parseInt(row[ropeIdx]) || 0,
-          frisbee: parseInt(row[frisbeeIdx]) || 0
-        };
-      });
-    }
-
-    // 取得資料主流程
-    async function fetchData() {
-      if (CSV_URL && CSV_URL !== 'YOUR_GOOGLE_SHEETS_CSV_URL') {
-        try {
-          const res = await fetch(CSV_URL + '?t=' + Date.now());
-          const text = await res.text();
-          const parsed = parseCSV(text);
-          if (parsed && parsed.length > 0) studentsData = parsed;
-          else studentsData = MOCK_DATA;
-        } catch (e) {
-          studentsData = MOCK_DATA;
-        }
-      } else {
-        studentsData = MOCK_DATA;
-      }
-
-      // 補齊計算總閱讀量
-      studentsData.forEach(s => {
-        s.totalBooks = s.books.reduce((a, b) => a + b, 0);
-      });
-
-      updateOverview();
-      document.getElementById('last-update').textContent = '更新時間：' + new Date().toLocaleTimeString('zh-TW', { hour12: false });
-    }
-
-    // 更新總覽畫面
-    function updateOverview() {
-      const totalPts = studentsData.reduce((acc, s) => acc + s.points, 0);
-      const totalBooks = studentsData.reduce((acc, s) => acc + s.totalBooks, 0);
-      const totalSports = studentsData.reduce((acc, s) => acc + s.rope + s.frisbee, 0);
-      const heroes = studentsData.filter(s => s.totalBooks >= 100).length;
-
-      document.getElementById('total-savings').textContent = `$${totalPts * REWARD_RATE} 元`;
-      document.getElementById('total-books').textContent = `${totalBooks} 本`;
-      document.getElementById('total-sports').textContent = `${totalSports.toLocaleString()} 次`;
-      document.getElementById('heroes-count').textContent = heroes;
-    }
-
-    // 渲染小豬卡片
-    function renderPiggyCard(s) {
-      const fillPercent = Math.min(100, Math.max(10, (s.points / 150) * 100));
-      const fillY = 120 - (100 * fillPercent / 100);
-      return `
-        <div class="crafted-card">
-          <div class="student-header">
-            <span class="student-name">${s.name}</span>
-            <span class="student-class">${s.className}</span>
-          </div>
-          <div class="piggy-content">
-            <div class="piggy-container">
-              <svg viewBox="0 0 160 135" class="piggy-svg">
-                <path d="M 30,25 C 40,10 60,10 70,22 C 80,10 100,10 110,25 C 130,25 145,45 145,70 C 152,70 158,78 158,85 C 158,92 152,98 145,98 C 138,110 120,120 105,120 L 105,128 L 85,128 L 85,120 L 55,120 L 55,128 L 35,128 L 35,115 C 20,110 10,95 10,75 C 10,50 20,25 30,25 Z" fill="#ffe0b2" stroke="#8d6e63" stroke-width="4" />
-                <g clip-path="url(#piggy-shape)">
-                  <rect x="0" y="${fillY}" width="160" height="135" fill="url(#gold-fill)" style="transition: y 1s ease;" />
-                </g>
-                <circle cx="120" cy="55" r="4" fill="#3e2723" />
-                <ellipse cx="145" cy="85" rx="6" ry="8" fill="#ffb74d" />
-              </svg>
-            </div>
-            <div class="piggy-data">
-              <div class="data-row">
-                <span class="points-highlight">${s.points}</span>
-                <span style="font-weight:900; font-size:1.2rem; color:#8d6e63;">點</span>
-              </div>
-              <div class="money-badge">換算 $${s.points * REWARD_RATE} 元</div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // 渲染閱讀卡片
-    function renderReadingCard(s) {
-      const pct = Math.min(100, (s.totalBooks / 100) * 100);
-      return `
-        <div class="crafted-card">
-          <div class="student-header">
-            <span class="student-name">${s.name}</span>
-            <span class="student-class">${s.className}</span>
-          </div>
-          <div class="reading-content">
-            <div style="display:flex; justify-content:space-between; align-items:baseline;">
-              <span style="font-size:1.1rem; font-weight:800; color:#5d4037;">總閱讀進度</span>
-              <span style="font-size:1.8rem; font-weight:900; color:#2e7d32;">${s.totalBooks} <span style="font-size:1rem; color:#795548;">/ 100 本</span></span>
-            </div>
-            <div class="mountain-progress-bar">
-              <div class="mountain-fill" style="width: ${pct}%;"></div>
-              <span class="flag-100">🚩 100</span>
-            </div>
-            <div class="grade-books-grid">
-              ${s.books.map((b, i) => `
-                <div class="grade-pill">
-                  <div class="grade-title">${i+1}階</div>
-                  <div class="grade-num">${b}</div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // 渲染健康儲蓄卡片 (跳繩 & 飛盤)
-    function renderHealthCard(s) {
-      // 跳繩計算 (600 - 800 - 1000)
-      let ropeMsg = "";
-      let ropePct = Math.min(100, (s.rope / 1000) * 100);
-      if (s.rope < 600) ropeMsg = `未達第 1 階 (還差 ${600 - s.rope} 次)`;
-      else if (s.rope < 800) ropeMsg = `已達第 1 階 🥉 (還差 ${800 - s.rope} 次)`;
-      else if (s.rope < 1000) ropeMsg = `已達第 2 階 🥈 (還差 ${1000 - s.rope} 次)`;
-      else ropeMsg = `已達第 3 階 🏆 (攻頂完成!)`;
-
-      // 飛盤計算 (3000 - 6000 - 9000)
-      let frisbeeMsg = "";
-      let frisbeePct = Math.min(100, (s.frisbee / 9000) * 100);
-      if (s.frisbee < 3000) frisbeeMsg = `未達第 1 階 (還差 ${3000 - s.frisbee} 次)`;
-      else if (s.frisbee < 6000) frisbeeMsg = `已達第 1 階 🥉 (還差 ${6000 - s.frisbee} 次)`;
-      else if (s.frisbee < 9000) frisbeeMsg = `已達第 2 階 🥈 (還差 ${9000 - s.frisbee} 次)`;
-      else frisbeeMsg = `已達第 3 階 🏆 (攻頂完成!)`;
-
-      return `
-        <div class="crafted-card">
-          <div class="student-header">
-            <span class="student-name">${s.name}</span>
-            <span class="student-class">${s.className}</span>
-          </div>
-          <div class="health-tracks">
-            <div class="track-item">
-              <div class="track-info">
-                <span>🪢 跳繩：${s.rope} 次</span>
-              </div>
-              <div class="track-bar-bg"><div class="track-bar-fill fill-rope" style="width:${ropePct}%"></div></div>
-              <div class="next-target-text">${ropeMsg}</div>
-            </div>
-            <div class="track-item">
-              <div class="track-info">
-                <span>🥏 飛盤：${s.frisbee} 次</span>
-              </div>
-              <div class="track-bar-bg"><div class="track-bar-fill fill-frisbee" style="width:${frisbeePct}%"></div></div>
-              <div class="next-target-text">${frisbeeMsg}</div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // 輪播切換引擎
-    function rotateCarousel() {
-      // 隱藏所有場面
-      document.querySelectorAll('.scene').forEach(sc => sc.classList.remove('active'));
-
-      const sceneTag = document.getElementById('scene-tag');
-      const pageIndicator = document.getElementById('page-indicator');
-
-      if (currentSceneIndex === 0) {
-        // 場面 0：總覽
-        document.getElementById('scene-0').classList.add('active');
-        sceneTag.textContent = '🌟 校園任務總覽';
-        pageIndicator.textContent = '頁次：1 / 1';
-        currentSceneIndex = 1;
-        currentSubPage = 0;
-      } else {
-        // 場面 1~3 (按頁分區展示)
-        let list = [...studentsData];
-        if (currentSceneIndex === 1) list.sort((a, b) => b.points - a.points);
-        else if (currentSceneIndex === 2) list.sort((a, b) => b.totalBooks - a.totalBooks);
-        else if (currentSceneIndex === 3) list.sort((a, b) => (b.rope + b.frisbee) - (a.rope + a.frisbee));
-
-        const totalPages = Math.ceil(list.length / STUDENTS_PER_PAGE) || 1;
-        const pageStudents = list.slice(currentSubPage * STUDENTS_PER_PAGE, (currentSubPage + 1) * STUDENTS_PER_PAGE);
-
-        if (currentSceneIndex === 1) {
-          sceneTag.textContent = '🐷 小豬撲滿金幣村';
-          document.getElementById('grid-piggy').innerHTML = pageStudents.map(renderPiggyCard).join('');
-          document.getElementById('scene-1').classList.add('active');
-        } else if (currentSceneIndex === 2) {
-          sceneTag.textContent = '📚 百閱挑戰山脈';
-          document.getElementById('grid-reading').innerHTML = pageStudents.map(renderReadingCard).join('');
-          document.getElementById('scene-2').classList.add('active');
-        } else if (currentSceneIndex === 3) {
-          sceneTag.textContent = '🏃 健康儲蓄競技場';
-          document.getElementById('grid-health').innerHTML = pageStudents.map(renderHealthCard).join('');
-          document.getElementById('scene-3').classList.add('active');
-        }
-
-        pageIndicator.textContent = `頁次：${currentSubPage + 1} / ${totalPages}`;
-
-        // 頁次與場面遞增邏輯
-        currentSubPage++;
-        if (currentSubPage >= totalPages) {
-          currentSubPage = 0;
-          currentSceneIndex++;
-          if (currentSceneIndex > 3) currentSceneIndex = 0; // 循環回總覽
-        }
-      }
-    }
-
-    // 初始化與時鐘設定
-    window.addEventListener('DOMContentLoaded', async () => {
-      await fetchData();
-      rotateCarousel();
-
-      // 輪播切換定時器
-      setInterval(rotateCarousel, CAROUSEL_INTERVAL_MS);
-
-      // 自動讀取試算表定時器 (30 秒背景更新，不影響當前輪播頁面)
-      setInterval(fetchData, FETCH_INTERVAL_MS);
-    });
-  </script>
-</body>
-</html>
+      gap: 3
