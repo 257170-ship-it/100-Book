@@ -1,147 +1,156 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>閱讀百閱勇者闖關｜風魚聖山</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>百閱勇者・風魚聖山｜共讀營地</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800;900&family=Noto+Sans+TC:wght@600;700;900&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;--ink:#20482f;--cream:#fffbed;--gold:#ffe379}
-*{box-sizing:border-box}body{margin:0;background:#163c2d;color:var(--ink);font-family:"M PLUS Rounded 1c","Noto Sans TC",sans-serif;overflow:hidden}button{font:inherit;cursor:pointer}button:focus-visible{outline:4px solid #ffac35;outline-offset:4px}
-#stage{width:1920px;height:1080px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--scale,1));overflow:hidden;background:radial-gradient(ellipse at 50% 27%,#e3ffa1 0,#92dc68 34%,#52b666 74%,#37975c 100%)}
-#stage:before{content:"";position:absolute;inset:0;opacity:.22;background-image:radial-gradient(#e5ffa8 2px,transparent 3px);background-size:29px 29px;pointer-events:none}
-header{position:absolute;left:38px;right:38px;top:25px;height:105px;display:flex;align-items:center;gap:22px;z-index:6}.crest{width:85px;height:85px;display:grid;place-items:center;border:5px solid #fff4be;background:#ffcf54;border-radius:28px;box-shadow:0 7px 0 #c59236,0 12px 20px #275d3426;font-size:46px;transform:rotate(-6deg)}h1{font-size:43px;letter-spacing:3px;margin:0;font-weight:900;text-shadow:0 3px #ecffc5}.subtitle{font-size:18px;letter-spacing:3px;margin-top:5px}.stats{display:flex;gap:12px;margin-left:auto}.stat{min-width:156px;background:#f5ffdda8;border:2px solid #fffbd5;border-radius:22px;padding:10px 20px;text-align:center;box-shadow:0 5px 0 #3676412e}.stat strong{font-size:34px;display:block;line-height:1.1}.stat span{font-size:16px}.fullscreen{border:2px solid #effbd1;border-radius:18px;background:#2c6846;color:white;padding:14px 18px;font-size:18px}
-.map{position:absolute;inset:130px 390px 190px;width:1140px;height:760px;filter:drop-shadow(0 17px 11px #29674244)}
-.water{fill:#70d7ca;stroke:#c0f1b6;stroke-width:11}.terrain{stroke:#668d43;stroke-width:4}.path-shadow{fill:none;stroke:#8e9c46;stroke-width:49;stroke-linecap:round;stroke-linejoin:round}.path{fill:none;stroke:#ffe8a1;stroke-width:38;stroke-linecap:round;stroke-linejoin:round}.path-dots{fill:none;stroke:#d9b65f;stroke-width:3;stroke-dasharray:2 15;stroke-linecap:round}.milestone{font-size:20px;font-weight:900;fill:#386440;paint-order:stroke;stroke:#fff9da;stroke-width:7px}
-#connections{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none;z-index:2}.lead{fill:none;stroke:#fffbe5;stroke-width:1.6;opacity:.17}.lead.active{stroke:#fff5a6;stroke-width:4;opacity:.9}
-#hudLayer{position:absolute;inset:0;z-index:4;pointer-events:none}.hud{position:absolute;width:360px;height:98px;padding:8px 12px;background:linear-gradient(160deg,#fffdf1,#f0f4d5);border:3px solid #fff9d8;border-radius:21px;box-shadow:0 6px 0 #448153,0 9px 16px #1b522c25;pointer-events:auto;transition:box-shadow .4s,transform .4s;outline:none}.hud.active{box-shadow:0 0 0 4px #ffe375,0 7px 0 #9c913d,0 0 28px #ffedac;transform:translateY(-3px)}.hud.champion{background:linear-gradient(120deg,#fff8d7,#ffe6a0);border-color:#ffe87f}.hudTop{display:flex;align-items:center;gap:8px;height:30px;white-space:nowrap}.number{display:inline-grid;place-items:center;flex:none;width:29px;height:29px;border-radius:10px;background:var(--color);color:white;font-size:16px;text-shadow:0 1px 2px #25433c}.name{font-size:24px;font-weight:900;overflow:hidden;text-overflow:ellipsis;max-width:143px}.grade{font-size:14px;color:#658066}.count{margin-left:auto;white-space:nowrap;font-size:16px}.count b{font-size:27px;color:#267345}.badges{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:5px}.badge{height:43px;border-radius:10px;background:#d6dcd3b3;color:#637365;border:1px solid #bec8b8;text-align:center;line-height:1.15;padding:3px 0}.badge strong{font-size:14px;display:block}.badge span{font-size:14px;font-weight:800}.badge.clear{background:linear-gradient(135deg,#fff4a1,#ffd356);border-color:#dfaa32;color:#71551d;box-shadow:0 0 7px #ffd54f95,inset 0 1px 0 white}.badge.clear span{font-size:11px;letter-spacing:.6px}.hud.bottom{width:258px;height:117px;padding:9px}.bottom .name{font-size:22px;max-width:96px}.bottom .grade{display:none}.bottom .count{font-size:12px}.bottom .count b{font-size:25px}.bottom .badges{gap:3px;margin-top:10px}.bottom .badge{height:45px}.bottom .badge span{font-size:12px}.bottom .badge.clear span{font-size:9px}
-#avatars{position:absolute;inset:0;z-index:3;pointer-events:none}.avatar{position:absolute;width:44px;height:61px;transform:translate(-50%,-100%);transition:left 1.6s ease,top 1.6s ease;filter:drop-shadow(0 5px 2px #28502770)}.avatar svg{width:44px;height:58px;overflow:visible}.avatar .mini{position:absolute;left:27px;top:-5px;border:2px solid #fff8d6;border-radius:10px;background:var(--color);color:white;font-size:15px;min-width:25px;text-align:center;padding:1px 3px}.avatar.active{z-index:9;filter:drop-shadow(0 0 8px #fff2a1)}.avatar.active svg{animation:hop 1.6s infinite}.avatar.done:before{content:"";position:absolute;width:65px;height:65px;border:3px solid #ffed89;box-shadow:0 0 15px #ffeb71,inset 0 0 20px #ffeb71;border-radius:50%;left:-10px;top:0;animation:aura 2s infinite}
-.egg-wrap{position:absolute;left:899px;top:171px;width:122px;height:133px;z-index:1}.egg{position:absolute;left:22px;top:0;width:79px;height:101px;border-radius:50% 50% 46% 46%;background:radial-gradient(ellipse at 32% 24%,white 0,#fffbe6 37%,#eadbb7 76%);border:3px solid #fef6c7;box-shadow:inset -10px -8px 15px #b7b49880,0 8px 0 #73865d,0 13px 12px #4a683b77;transform:rotate(-8deg)}.egg i{position:absolute;width:23px;height:17px;border-radius:50%;background:#d69acb;transform:rotate(24deg)}.egg i:nth-child(1){top:24px;left:12px}.egg i:nth-child(2){top:52px;right:8px}.egg i:nth-child(3){bottom:10px;left:16px;width:15px}.egg-caption{position:absolute;top:112px;width:180px;left:-28px;text-align:center;font-size:18px;font-weight:900;background:#fff7ca;border:3px solid #c99746;border-radius:14px;box-shadow:0 4px #6d7545;padding:3px}.summit-on .egg{animation:eggGlow 2s infinite}.spark{display:none;position:absolute;left:60px;top:40px;width:6px;height:6px;background:#fff69c;border-radius:50%;box-shadow:0 -49px #fff2ae,35px -35px #ffe774,49px 0 #fff4cf,35px 35px #ffda66,0 49px #fff4b7,-35px 35px #ffe37a,-49px 0 #fff3a3,-35px -35px #ffef93;animation:fireworks 2.8s infinite}.summit-on .spark{display:block}.spark.second{left:-15px;top:55px;animation-delay:1.4s}.spark.third{left:140px;top:30px;animation-delay:.7s}
-.mapTitle{position:absolute;left:770px;top:785px;width:380px;text-align:center;border-radius:23px;background:#285b3de8;color:#fff4c4;padding:13px 18px;z-index:1;box-shadow:0 6px 0 #204c34}.mapTitle b{font-size:25px;display:block;letter-spacing:4px}.mapTitle span{font-size:16px}.footer{position:absolute;bottom:12px;left:36px;right:36px;display:flex;align-items:center;justify-content:space-between;font-size:16px;color:#f2ffdd}.legend{display:flex;gap:21px}.goldDot{color:#ffe270}.status{padding:3px 12px;border-radius:10px;background:#245b3d}.status.error{background:#8b5932}.status.demo{background:#77602f}#clock{font-variant-numeric:tabular-nums}
-@keyframes hop{50%{transform:translateY(-7px)}}@keyframes aura{50%{opacity:.5;transform:scale(1.15)}}@keyframes eggGlow{50%{box-shadow:0 0 55px #fff7b4,inset -10px -8px 15px #c0b087,0 8px 0 #b4a664}}@keyframes fireworks{0%,15%{opacity:0;transform:scale(.1)}35%{opacity:1}85%,100%{opacity:0;transform:scale(1.7)}}@media(prefers-reduced-motion:reduce){*,*:before{animation:none!important;transition:none!important}}
+:root{color-scheme:light;--ink:#214e38;--cream:#fffceb;--green:#256e47;--gold:#ffd56b;--scale:1}
+*{box-sizing:border-box}body{margin:0;background:#183c2d;font-family:"M PLUS Rounded 1c","Noto Sans TC",sans-serif;color:var(--ink);overflow:hidden;line-height:1.3}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible{outline:4px solid #dc8833;outline-offset:3px}button:disabled{cursor:default;opacity:.45}svg{display:block}.defs{position:absolute;width:0;height:0;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--scale));overflow:hidden;background:radial-gradient(ellipse at 25% 0,#e1f9a9,transparent 62%),linear-gradient(120deg,#8fcd6c,#5cb97d);isolation:isolate}
+header{height:112px;margin:22px 30px 0;display:flex;align-items:center;gap:19px}.brand-icon{width:83px;height:83px;flex:none;border:5px solid #fff5cf;border-radius:27px;background:linear-gradient(135deg,#ffed94,#ffc857);box-shadow:0 6px #b99846,0 12px 20px #486d3325;display:grid;place-items:center;font-size:45px;transform:rotate(-5deg)}h1{font-size:42px;letter-spacing:2px;margin:0;font-weight:900;line-height:1.3}.subhead{font-size:17px;letter-spacing:2px;margin-top:5px;color:#4c7048}.stats{display:flex;gap:12px;margin-left:auto}.stat{width:135px;text-align:center;background:#f7ffe0bc;border:2px solid #faffe9;border-radius:24px;padding:10px;box-shadow:0 5px #579f6230}.stat b{display:block;font-size:35px;line-height:1.15}.stat span{font-size:16px}.controls{display:flex;gap:9px;margin-left:12px}.control{padding:13px 15px;border:2px solid #c8edb4;background:#2e6b49;color:#fff9dd;border-radius:17px;font-size:17px}
+.layout{display:grid;grid-template-columns:1186px 650px;gap:24px;margin:12px 30px 0;height:850px}.island{border:3px solid #e0f5b8;border-radius:38px;overflow:hidden;background:linear-gradient(#d0ee9b,#9ed779);box-shadow:0 9px #39754a45,0 22px 36px #35623a25;position:relative}.scene{height:585px;position:relative;background:radial-gradient(ellipse at 51% 15%,#eefbc8,transparent 55%),linear-gradient(#c9ed9e,#a0d988)}.scene>svg{position:absolute;inset:0;width:1180px;height:585px}.map-kicker{position:absolute;left:26px;top:24px;z-index:2}.map-kicker span{font-size:14px;letter-spacing:3px;color:#658644}.map-kicker strong{display:block;font-size:26px;letter-spacing:3px;margin-top:1px}.map-note{position:absolute;left:27px;top:91px;font-size:16px;color:#476747;line-height:1.65;width:235px}.summit-banner{position:absolute;left:495px;top:119px;width:247px;text-align:center;border:3px solid #b58c48;background:linear-gradient(#fff2b8,#ffe7a1);border-radius:15px;padding:5px;font-size:19px;font-weight:900;box-shadow:0 4px #768c47}.summit-banner.won{box-shadow:0 0 22px #fff097,0 4px #768c47}.scene-legend{position:absolute;right:26px;top:26px;font-size:15px;line-height:1.75;color:#486648;text-align:right}.scene-legend i{display:inline-block;width:10px;height:10px;background:#2c7751;border:2px solid #fff4ce;border-radius:50%;margin-right:7px}.scene-legend b{color:#8a642c}
+.road-outline{fill:none;stroke:#918343;stroke-width:49;stroke-linecap:round;stroke-linejoin:round}.road{fill:none;stroke:#fff0b2;stroke-width:39;stroke-linecap:round;stroke-linejoin:round}.road-dots{fill:none;stroke:#ccb672;stroke-width:3;stroke-dasharray:1 15;stroke-linecap:round}.milestone{font-size:20px;font-weight:900;fill:#466744;paint-order:stroke;stroke:#fff9e0;stroke-width:7;stroke-linejoin:round}.group-dot{fill:#306e4d;stroke:#fff5d5;stroke-width:3}.focus-halo{fill:#ffda70;stroke:#fffbea;stroke-width:4}.active-route-line{fill:none;stroke:#fef9d9;stroke-width:3;stroke-dasharray:5 6;filter:drop-shadow(0 1px 1px #476235)}.active-name{font-size:22px;font-weight:900;fill:#234e38}.active-note{font-size:16px;fill:#5b774d}.hero{overflow:visible;filter:drop-shadow(0 4px 1px #37543745)}#activeParty{pointer-events:none}#activeParty .hero{animation:bob 3s infinite}.egg-shell{fill:url(#egg-shade);stroke:#fffbdd;stroke-width:3}.egg-shadow{filter:drop-shadow(0 5px 2px #46644466)}.winning .egg-shadow{filter:drop-shadow(0 0 15px #ffec71)}.fireworks{display:none;transform-origin:618px 68px;animation:sparkle 3s infinite}.winning .fireworks{display:block}
+.camp-plaza{height:259px;border-top:3px solid #8baf64;padding:15px 22px 17px;background:linear-gradient(165deg,#f0edc4,#e6dda9);box-shadow:inset 0 5px #fff7cf8a;position:relative}.camp-plaza:before{content:"";position:absolute;inset:0;opacity:.2;pointer-events:none;background:radial-gradient(#ad9b64 1px,transparent 2px);background-size:19px 19px}.camp-head{display:flex;justify-content:space-between;align-items:center;position:relative;margin-bottom:8px}.camp-head h2{line-height:1.25;font-size:24px;margin:0;letter-spacing:1px}.camp-head p{font-size:15px;margin:3px 0 0;color:#667044}.camp-page{font-size:15px;text-align:right;color:#667044}.camps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;position:relative}.camp-card{height:158px;border:2px solid #d7c793;background:#fff9e0;border-radius:21px;box-shadow:0 5px #a9a16e3d;padding:7px 9px;text-align:left;position:relative;overflow:hidden}.camp-card.active{border:3px solid #c29a3e;padding:6px 8px;background:linear-gradient(#fff9df,#ffedb4);box-shadow:0 0 0 3px #fff1ae,0 6px #a8a06b}.camp-title{display:flex;justify-content:space-between;align-items:center;gap:6px}.camp-title b{font-size:25px}.camp-title span{font-size:15px;background:#e8eed0;border-radius:10px;padding:2px 7px;white-space:nowrap}.camp-people{height:62px;display:flex;align-items:flex-end;justify-content:center;gap:0;position:relative;margin-top:2px}.camp-people:before{content:"";position:absolute;bottom:0;width:90%;height:18px;border-radius:50%;background:#cbd99c}.camp-people svg{width:43px;height:58px;position:relative}.camp-more{position:absolute;right:0;top:3px;border-radius:12px;background:#356b4c;color:#fff8d6;font-size:15px;padding:2px 5px;z-index:1}.camp-names{display:block;font-size:17px;font-weight:900;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:5px}.camp-caption{font-size:13px;text-align:center;color:#67734f;margin-top:1px}.camp-empty{grid-column:1/-1;height:167px;display:flex;align-items:center;justify-content:center;gap:24px;border:2px dashed #bdc186;border-radius:24px;color:#6c7951}.camp-empty b{font-size:26px}.camp-empty span{font-size:18px}
+.sidebar{display:flex;flex-direction:column;gap:18px}.feature{height:292px;flex:none;background:linear-gradient(135deg,#fffef0,#f5efcc);border:3px solid #fffae2;border-radius:30px;padding:16px 21px;box-shadow:0 7px #52865755;position:relative;overflow:hidden}.feature-head{display:flex;align-items:center;justify-content:space-between;font-size:16px;letter-spacing:2px;color:#617345}.feature-nav{display:flex;align-items:center;gap:8px;letter-spacing:0}.feature-nav button{width:30px;height:28px;border:1px solid #c3cda0;background:#eef0d2;border-radius:9px;font-size:20px;line-height:20px}.feature-nav span{font-size:15px;width:65px;text-align:center}.feature-main{display:flex;align-items:center;height:95px;gap:13px}.feature-avatar{width:67px;height:86px;flex:none}.feature-avatar svg{width:67px;height:86px}.feature-person{flex:1;min-width:0}.feature-person h2{font-size:37px;margin:0;line-height:1.22;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.feature-person p{font-size:17px;margin:4px 0 0;color:#62754c}.feature-score{display:flex;align-items:baseline;gap:5px;white-space:nowrap}.feature-score strong{font-size:59px;line-height:1;letter-spacing:-3px;color:#2c774b}.feature-score span{font-size:18px;color:#64794f}.progress{height:8px;border-radius:8px;background:#dce3bc;overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#79b359,#e6c359);border-radius:8px;transition:width .8s}.feature-goal{display:flex;justify-content:space-between;font-size:15px;margin:6px 0 11px;color:#63774b}.badges{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.badge{height:76px;background:#e6e8d9;border:2px solid #cbd2bc;border-radius:15px;text-align:center;padding:7px 2px;color:#657462}.badge b{display:block;font-size:19px;line-height:1.2}.badge span{display:block;font-size:23px;line-height:1.4;font-weight:900}.badge.clear{background:linear-gradient(140deg,#fff1a2,#f7cf64);border-color:#deb255;color:#785722;box-shadow:0 0 10px #e8c36566}.badge.clear span{font-size:16px;padding-top:5px;letter-spacing:1px}.sweep{position:absolute;bottom:0;left:0;height:4px;background:#d8ac46;width:100%;transform-origin:left;animation:countdown 8s linear}.sweep.paused{animation-play-state:paused}
+.overview{height:540px;background:#e6f2c9b8;border:2px solid #d8efb5;border-radius:28px;padding:13px 13px 15px;box-shadow:0 7px #44845845;overflow:hidden}.overview-head{display:flex;align-items:center;justify-content:space-between;height:37px;padding:0 4px;margin-bottom:10px}.overview-head h2{font-size:23px;margin:0}.overview-head span{font-size:14px;color:#577449}.roster{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(7,60px);gap:6px 7px}.student{min-width:0;height:60px;border:2px solid #fcfdeb;background:#fbfce8;box-shadow:0 3px #6b95532b;border-radius:13px;padding:4px 8px;text-align:left;position:relative;overflow:hidden}.student.active{background:#ffefb1;border-color:#cda247;box-shadow:inset 0 0 0 1px #fff6d5,0 2px #c2a656}.student.won{background:#fff4c8}.student-top{display:flex;align-items:center;justify-content:space-between;gap:4px}.student-name{font-size:23px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.2}.student-score{flex:none;font-size:26px;font-weight:900;line-height:1.1;color:#39754c}.student-score small{font-size:12px;margin-left:2px}.student-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:3px;color:#6c7e59;font-size:14px}.mini-badges{display:flex;gap:4px}.mini-badges i{display:block;width:9px;height:9px;border-radius:50%;background:#ccd5bf;border:1px solid #bcc7ac}.mini-badges i.clear{background:#efc64e;border-color:#b58e34}.student-bar{position:absolute;bottom:0;height:2px;left:0;background:#83b569;max-width:100%}.empty-roster{grid-column:1/-1;grid-row:1/-1;display:grid;place-items:center;text-align:center;color:#62784c;font-size:24px;line-height:1.8;padding:30px}
+footer{position:absolute;left:34px;right:34px;bottom:16px;height:30px;display:flex;align-items:center;gap:20px;color:#f5ffe5;font-size:16px}.footer-note{white-space:nowrap}.status{min-width:0;flex:1;text-align:center;padding:5px 16px;background:#2c6c49;border-radius:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.status.error{background:#81532e;color:#fff3d4}.status.demo{background:#84682e}.clock{white-space:nowrap;font-variant-numeric:tabular-nums}.loading-screen{position:absolute;inset:170px 230px 100px;z-index:6;border:2px solid #fffbdd;background:#f7f8deec;border-radius:28px;display:grid;place-items:center;text-align:center;padding:25px;font-size:23px;line-height:1.8;box-shadow:0 10px 30px #39694522}.loading-screen[hidden]{display:none}.loading-screen strong{font-size:29px;display:block}.loading-screen p{font-size:18px;color:#6e784f;margin:8px 0}
+@keyframes bob{50%{transform:translateY(-3px)}}@keyframes countdown{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes sparkle{0%,100%{opacity:0;transform:scale(.5)}40%{opacity:1;transform:scale(1.1)}80%{opacity:0;transform:scale(1.4)}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<main id="stage" aria-label="閱讀百閱勇者闖關儀表板">
-<header><div class="crest" aria-hidden="true">📖</div><div><h1>百閱勇者・風魚聖山</h1><div class="subtitle">READING QUEST　每一本書，都是向上的力量。</div></div><div class="stats"><div class="stat"><strong id="students">21</strong><span>位閱讀勇者</span></div><div class="stat"><strong id="books">—</strong><span>全隊累積本數</span></div><div class="stat"><strong id="cleared">—</strong><span>位成功攻頂</span></div></div><button class="fullscreen" id="fullscreen" title="切換全螢幕（或按 F11）">⛶ 全螢幕</button></header>
-<svg class="map" viewBox="0 0 1140 760" aria-label="由山腳 0 本到山頂 100 本的攀登路線">
-<defs><linearGradient id="grass" x2="0" y2="1"><stop stop-color="#c6e887"/><stop offset="1" stop-color="#74bd54"/></linearGradient><linearGradient id="rock" x2="0" y2="1"><stop stop-color="#b0cb78"/><stop offset="1" stop-color="#628c4a"/></linearGradient><g id="tree"><ellipse cy="19" rx="25" ry="10" fill="#3f7e43" opacity=".3"/><rect x="-5" y="-14" width="10" height="34" rx="4" fill="#98704b"/><path d="M0-64Q-10-58-21-30Q-34-9-18-4Q0 5 18-4Q34-9 21-30Q10-58 0-64" fill="#399b50" stroke="#287947" stroke-width="3"/><path d="M-8-49Q-22-21-14-17" fill="none" stroke="#77ca64" stroke-width="7" stroke-linecap="round"/></g></defs>
-<ellipse class="water" cx="570" cy="444" rx="549" ry="282"/><path d="M88 573Q95 663 336 684L815 681Q1037 651 1051 568L1004 411 796 263 577 97 344 243 139 427Z" fill="#548d47"/><path class="terrain" d="M87 544Q123 656 366 650L815 650Q1030 624 1050 544L990 406 795 245 574 70 347 233 140 399Z" fill="url(#grass)"/>
-<path d="M242 456L367 265 572 63 773 240 903 435Q810 524 574 501Q368 526 242 456" fill="url(#rock)" stroke="#598c48" stroke-width="5"/><path d="M342 338L460 178 571 53 699 178 798 333Q690 407 573 382Q440 407 342 338" fill="#9bc964" stroke="#78a354" stroke-width="5"/><path d="M468 192L575 47 690 190Q576 234 468 192" fill="#d6e6a0" stroke="#8ea55d" stroke-width="5"/>
-<defs><path id="trail" d="M560 634 C295 627 200 565 290 516 S914 524 835 430 S277 438 342 339 S809 341 743 258 S431 259 469 179 S635 176 570 121"/></defs><use href="#trail" class="path-shadow"/>
-<use href="#trail" class="path"/><use href="#trail" class="path-dots"/>
+<svg class="defs" aria-hidden="true"><defs>
+<linearGradient id="hill" x2="0" y2="1"><stop stop-color="#c6e28b"/><stop offset="1" stop-color="#7ab556"/></linearGradient>
+<linearGradient id="ledge" x2="0" y2="1"><stop stop-color="#8aaa52"/><stop offset="1" stop-color="#577b43"/></linearGradient>
+<radialGradient id="egg-shade" cx=".3" cy=".25" r=".8"><stop stop-color="#fffef3"/><stop offset=".6" stop-color="#faf1d7"/><stop offset="1" stop-color="#c8c39c"/></radialGradient>
+<linearGradient id="tree-shade" x2="1" y2=".7"><stop stop-color="#6bc26a"/><stop offset="1" stop-color="#287649"/></linearGradient>
+<symbol id="hero" viewBox="0 0 60 80"><ellipse cx="30" cy="75" rx="23" ry="5" fill="#3a5831" opacity=".22"/><path d="M19 59L14 73Q18 78 26 73L28 59M34 59L36 73Q44 78 48 72L42 58" fill="#755440" stroke="#594731" stroke-width="2"/><path d="M15 42Q31 34 46 43L46 62Q29 70 13 61Z" fill="currentColor" stroke="#41644b" stroke-width="2"/><path d="M21 45L41 60" stroke="#ffe199" stroke-width="5"/><ellipse cx="29" cy="29" rx="19" ry="20" fill="#ffd7a6" stroke="#a57a4b" stroke-width="2"/><path d="M9 25Q6 5 27 3Q42 1 51 21L37 16L26 23Z" fill="currentColor" stroke="#41644b" stroke-width="2"/><path d="M16 14Q23 8 29 9" fill="none" stroke="#e8f2b8" stroke-width="4" stroke-linecap="round" opacity=".7"/><ellipse cx="23" cy="31" rx="2.4" ry="3" fill="#3c4939"/><ellipse cx="36" cy="31" rx="2.4" ry="3" fill="#3c4939"/><path d="M26 39Q30 43 34 39" fill="none" stroke="#b47956" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="36" r="3" fill="#edac88"/><circle cx="40" cy="36" r="3" fill="#edac88"/><path d="M5 43L17 41L19 60L8 63L4 57Z" fill="#ffedb4" stroke="#967345" stroke-width="2"/><path d="M10 45L12 59M13 46L16 46" stroke="#ad9659" stroke-width="2"/></symbol>
+<g id="pine"><ellipse cy="20" rx="25" ry="9" fill="#3c633b" opacity=".22"/><rect x="-5" y="-14" width="10" height="33" rx="5" fill="#947044"/><path d="M0-65C-15-50-32-12-22-7Q0 6 22-7C32-12 15-50 0-65Z" fill="url(#tree-shade)" stroke="#367d45" stroke-width="3"/><path d="M-5-47Q-19-23-15-17" fill="none" stroke="#9cdd81" stroke-width="5" stroke-linecap="round" opacity=".7"/></g>
+</defs></svg>
+<main id="stage">
+<header><div class="brand-icon" aria-hidden="true">📖</div><div><h1>百閱勇者・風魚聖山</h1><div class="subhead">READING QUEST　一起出發，讓每一本書帶你向前。</div></div><div class="stats"><div class="stat"><b id="studentCount">—</b><span>位閱讀勇者</span></div><div class="stat"><b id="bookCount">—</b><span>全隊累積本數</span></div><div class="stat"><b id="winnerCount">—</b><span>位成功攻頂</span></div></div><div class="controls"><button class="control" id="pause" aria-pressed="false">Ⅱ 暫停輪播</button><button class="control" id="fullscreen">⛶ 全螢幕</button></div></header>
+<div class="layout">
+<section class="island" aria-label="閱讀進度山路與同分營地">
+<div class="scene" id="scene">
+<div class="map-kicker"><span>THE READING ISLAND</span><strong>每一步，都算數。</strong></div><div class="map-note">同本數的勇者一起紮營<br>亮起的圓點，就是目前進度</div><div class="scene-legend"><i></i>山路圓點＝真實本數<br><b>✦ 金色＝目前聚焦</b></div>
+<svg id="map" viewBox="0 0 1180 585" role="img" aria-label="從 0 本出發，沿山路前往 100 本的風魚之蛋">
+<defs><path id="trail" d="M285 549 C110 541 145 485 300 481 S1020 472 868 384 S225 373 353 289 S855 280 742 207 S657 184 622 177"/></defs>
+<ellipse cx="595" cy="456" rx="536" ry="121" fill="#e0efb5"/><ellipse cx="595" cy="446" rx="517" ry="113" fill="#70c5ab"/><path d="M141 458Q167 541 600 550Q1019 542 1032 456L827 285 617 94 391 235Z" fill="#658d46"/>
+<path d="M141 445Q194 520 600 524Q996 520 1032 445L827 272 617 83 392 222Z" fill="url(#hill)" stroke="#91b860" stroke-width="4"/>
+<path d="M265 373Q562 445 914 371L775 241 619 99 437 223Z" fill="url(#ledge)" stroke="#82a554" stroke-width="4"/><path d="M267 350Q591 416 894 352L774 230 619 87 437 211Z" fill="#b7d976" stroke="#a4c76c" stroke-width="4"/>
+<path d="M416 249Q590 297 788 252L619 90Z" fill="url(#ledge)"/><path d="M422 231Q585 273 780 234L619 76Z" fill="#d9e9a1" stroke="#aec76e" stroke-width="4"/>
+<use href="#trail" class="road-outline"/><use href="#trail" class="road"/><use href="#trail" class="road-dots"/>
+<g aria-hidden="true"><use href="#pine" x="207" y="434"/><use href="#pine" x="352" y="400"/><use href="#pine" x="992" y="424"/><use href="#pine" x="955" y="487"/><use href="#pine" x="391" y="248"/><use href="#pine" x="830" y="282"/><use href="#pine" x="791" y="168"/><use href="#pine" x="506" y="465"/><use href="#pine" x="686" y="414"/></g>
+<g fill="#fff5c6" aria-hidden="true"><circle cx="321" cy="447" r="4"/><circle cx="333" cy="450" r="3"/><circle cx="848" cy="458" r="4"/><circle cx="864" cy="466" r="3"/><circle cx="477" cy="326" r="4"/><circle cx="489" cy="331" r="3"/></g>
+<g transform="translate(150 509)" aria-hidden="true"><path d="M-46 16L0-41L48 16Z" fill="#efc968" stroke="#ae9351" stroke-width="3"/><path d="M0-41L18 16H48Z" fill="#e0ae55"/><path d="M-17 16L0-16L17 16Z" fill="#6b7450"/><path d="M0-41V-60L29-55L0-47" fill="#fff3bd" stroke="#92734a" stroke-width="3"/></g>
 <g id="milestones"></g>
-<g><use href="#tree" x="136" y="489" transform="rotate(-8 136 489)"/><use href="#tree" x="187" y="538"/><use href="#tree" x="926" y="515"/><use href="#tree" x="983" y="456"/><use href="#tree" x="241" y="377"/><use href="#tree" x="831" y="372"/><use href="#tree" x="795" y="516"/><use href="#tree" x="437" y="590"/><use href="#tree" x="653" y="573"/><use href="#tree" x="379" y="210"/><use href="#tree" x="750" y="180"/></g>
-<g fill="#fff2b7"><circle cx="177" cy="438" r="5"/><circle cx="190" cy="445" r="4"/><circle cx="904" cy="553" r="5"/><circle cx="916" cy="545" r="4"/><circle cx="696" cy="636" r="5"/><circle cx="685" cy="643" r="4"/></g>
-<g transform="translate(895 612) rotate(-12)"><rect x="-33" y="-27" width="66" height="40" rx="10" fill="#b8834c" stroke="#765439" stroke-width="4"/><path d="M-32-8H32M-3-26V12" stroke="#ffd367" stroke-width="7"/><rect x="-7" y="-12" width="14" height="15" rx="3" fill="#ffe189"/></g>
+<g id="egg"><g class="egg-shadow"><ellipse cx="619" cy="109" rx="51" ry="14" fill="#88a451"/><path class="egg-shell" d="M619 22C593 22 575 59 579 82C582 116 653 120 661 83C666 59 644 22 619 22Z"/><ellipse cx="601" cy="52" rx="10" ry="8" fill="#d5a0cb" transform="rotate(23 601 52)"/><ellipse cx="641" cy="73" rx="12" ry="9" fill="#d5a0cb" transform="rotate(-21 641 73)"/><ellipse cx="607" cy="94" rx="8" ry="6" fill="#d5a0cb"/></g><g class="fireworks" fill="#fff1a0"><path d="M544 23L547 11L551 23L563 27L551 31L547 43L544 31L532 27Z"/><path d="M694 54L697 42L701 54L713 58L701 62L697 74L694 62L682 58Z"/><circle cx="574" cy="12" r="4"/><circle cx="676" cy="12" r="4"/><circle cx="697" cy="105" r="4"/></g></g>
+<g id="anchors"></g><g id="activeParty"></g>
 </svg>
-<div class="egg-wrap" id="summit"><div class="egg"><i></i><i></i><i></i></div><span class="spark"></span><span class="spark second"></span><span class="spark third"></span><div class="egg-caption">✦ 100 本・風魚之蛋</div></div>
-<div class="mapTitle"><b>一本一腳印，向山頂前進</b><span>沿山路累積 0 → 100 本</span></div>
-<svg id="connections" aria-hidden="true"></svg><div id="avatars" aria-hidden="true"></div><section id="hudLayer" aria-label="21 位學生閱讀進度"></section>
-<footer class="footer"><div class="legend"><span class="goldDot">✦ 金色 CLEAR＝年級認證完成</span><span>G1–G6 目標：25 / 25 / 15 / 15 / 10 / 10 本</span></div><span id="status" class="status demo" role="status">示範資料・未串接 API</span><time id="clock"></time></footer>
+<div class="summit-banner" id="summitBanner">✦ 100 本・風魚之蛋</div>
+<div class="loading-screen" id="loading"><div><strong id="loadingTitle">勇者集合中…</strong><p id="loadingText">正在讀取閱讀進度</p></div></div>
+</div>
+<section class="camp-plaza" aria-label="同分營地成員展示"><div class="camp-head"><div><h2 id="campHeading">山腳出發廣場</h2><p id="campHint">同本數共用營地・角色輪流展示，山路位置保持不動</p></div><div class="camp-page" id="campPage">等待勇者資料</div></div><div id="camps" class="camps"><div class="camp-empty"><b>⛺ 每一本，都是新的起點</b><span>準備好一起出發了嗎？</span></div></div></section>
+</section>
+<aside class="sidebar">
+<section class="feature" aria-label="目前聚焦學生的完整年級認證"><div class="feature-head"><span>✦ 勇者焦點</span><div class="feature-nav"><button id="prev" aria-label="上一位勇者">‹</button><span id="focusIndex">— / 21</span><button id="next" aria-label="下一位勇者">›</button></div></div><div class="feature-main"><div class="feature-avatar" id="featureAvatar"></div><div class="feature-person"><h2 id="featureName">等待勇者資料</h2><p id="featureGrade">一起朝 100 本前進</p></div><div class="feature-score"><strong id="featureCount">—</strong><span>/100 本</span></div></div><div class="progress"><i id="featureProgress"></i></div><div class="feature-goal"><span id="nextGoal">下一站，從第一本開始</span><span id="badgeSummary">年級認證 0 / 6</span></div><div class="badges" id="badges"></div><div id="sweep" class="sweep paused"></div></section>
+<section class="overview" aria-label="全班 21 位學生進度概覽"><div class="overview-head"><h2>全班冒險隊</h2><span>依名單排列 · 金點＝年級通關</span></div><div class="roster" id="roster"><div class="empty-roster">閱讀的每一步<br>都值得被看見。</div></div></section>
+</aside>
+</div>
+<footer><span class="footer-note">⛺ 同分一起紮營　｜　<span id="rotationLabel">每 8 秒輪播一位勇者</span></span><span class="status" id="status" role="status">正在連線…</span><time class="clock" id="clock"></time></footer>
 </main>
 <script>
+(() => {
 'use strict';
-/* ===================== 使用設定 =====================
- * 1. 填入 Google Apps Script Web App 的 /exec 網址。
- * 2. 留空時顯示 21 位虛構學生，示範模式會明確標示。
- * 3. API 可回傳學生陣列，或 { students: [...] }。
- * 4. 每位學生必要欄位：
- * { name:"小明", grade:3, total_count:45,
- *   grade_progress:{g1:25,g2:12,g3:8,g4:0,g5:0,g6:0} }
- * total_count 獨立決定攀登位置；不強制等於六年級認證合計。
- * 正式模式不會在 API 故障時切換成虛構成績。
- * API 須允許顯示裝置直接讀取；不要在此放任何私密金鑰。
- * 建議以 HTTPS 靜態網站開啟；Google Fonts 無法載入時使用本機字型。
- * ==================================================== */
-const API_URL = 'https://script.google.com/macros/s/AKfycbxBJ6zrhzeMuMYmGVmQiesGa9qv7c6cjh8XJ2CR7lP8-MWTeILveWeuCbsUWkaHMNO4jQ/exec'; // 例如 https://script.google.com/macros/s/你的部署ID/exec
-const REFRESH_MS = 30_000;
-const EXPECTED_STUDENTS = 21;
-const GRADE_TARGETS = Object.freeze([25,25,15,15,10,10]);
-const COLORS = ['#427bca','#d47d38','#8553ba','#338e7d','#c4607b','#618c37','#b18a30'];
-const $ = id => document.getElementById(id);
-const NS = 'http://www.w3.org/2000/svg';
-const trail = $('trail');
-let roster = [], focusIndex = -1, refreshTimer, busy = false, lastSuccess = null;
-let view = [];
+/* 設定：保持原 Google Apps Script API 與 JSON 欄位不變。
+   API: [{name,grade,total_count,grade_progress:{g1,g2,g3,g4,g5,g6}}]
+   也接受 {students:[...]}；可選 id 欄位能在名單重排後保持聚焦身分。
+   API_URL 留空顯示虛構示範；正式模式讀取失敗不會改用假資料。
+   本檔不需圖檔／JavaScript 套件。Google Fonts 無法載入時使用本機字型。
+   比例固定 1920×1080，自動適配 16:9。F11 或右上角按鈕可全螢幕。
+   同分位置僅由總本數決定。底部營地為成員展示區，不代表山路高度。
+*/
+const API_URL='https://script.google.com/macros/s/AKfycbxBJ6zrhzeMuMYmGVmQiesGa9qv7c6cjh8XJ2CR7lP8-MWTeILveWeuCbsUWkaHMNO4jQ/exec';
+const REFRESH_MS=30000,FOCUS_MS=8000,EXPECTED_STUDENTS=21;
+const TARGETS=Object.freeze([25,25,15,15,10,10]);
+const COLORS=['#518f6a','#5887c2','#c78745','#9a72b8','#c57283','#4f9993','#93a051'];
+const ZONES=[{min:0,max:9,name:'山腳出發廣場'},{min:10,max:24,name:'林間前進營地'},{min:25,max:49,name:'森林探索營地'},{min:50,max:74,name:'山腰冒險營地'},{min:75,max:99,name:'雲端衝刺營地'},{min:100,max:100,name:'山頂慶祝平台'}];
+const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
+let students=[],groups=[],current=0,paused=false,busy=false,lastSuccess=null,rotationTimer=null;
+const anchorPoints=new Map();let rosterNodes=[];
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+function sv(tag,attrs,text){const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs||{}))e.setAttribute(k,String(v));if(text!==undefined)e.textContent=text;return e;}
 function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1920,innerHeight/1080));}
-addEventListener('resize',fit);fit();
-function node(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el;}
-function svgNode(tag,attrs){const el=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));return el;}
-function integer(value,min,max,label){if((typeof value!=='number'&&typeof value!=='string')||String(value).trim()===''||!Number.isInteger(Number(value))||Number(value)<min||Number(value)>max)throw new Error(label+' 超出範圍或格式錯誤');return Number(value);}
+function integer(value,min,max,label){if((typeof value!=='number'&&typeof value!=='string')||String(value).trim()===''||!Number.isInteger(Number(value))||Number(value)<min||Number(value)>max)throw new Error(label+'須為 '+min+'～'+max+' 的整數');return Number(value);}
 function normalize(payload){
+ if(payload?.error)throw new Error(String(payload.error));
  const rows=Array.isArray(payload)?payload:payload?.students;
- if(!Array.isArray(rows)||rows.length!==EXPECTED_STUDENTS)throw new Error('資料需包含 21 位學生');
- return rows.map((r,i)=>{
-  if(!r||typeof r.name!=='string'||!r.name.trim())throw new Error('第 '+(i+1)+' 位學生缺少姓名');
-  const gp={};GRADE_TARGETS.forEach((target,j)=>{gp['g'+(j+1)]=integer(r.grade_progress?.['g'+(j+1)],0,Number.MAX_SAFE_INTEGER,'年級認證本數');});
-  return {name:r.name.trim(),grade:integer(r.grade,1,6,'年級'),total_count:integer(r.total_count,0,100,'總本數'),grade_progress:gp};
+ if(!Array.isArray(rows))throw new Error('API 格式錯誤：缺少 students 陣列');
+ if(rows.length!==EXPECTED_STUDENTS)throw new Error('需有 21 位學生，目前為 '+rows.length+' 位');
+ const seen=new Map();
+ return rows.map((r,i)=>{if(!r||typeof r.name!=='string'||!r.name.trim())throw new Error('第 '+(i+1)+' 位缺少姓名');
+  const name=r.name.trim(),grade=integer(r.grade,1,6,name+'的年級'),total_count=integer(r.total_count,0,100,name+'的總本數');
+  const gp={};TARGETS.forEach((t,g)=>{gp['g'+(g+1)]=integer(r.grade_progress?.['g'+(g+1)],0,Number.MAX_SAFE_INTEGER,name+'的 G'+(g+1));});
+  const base=r.id!==undefined&&r.id!==null?'id:'+String(r.id):JSON.stringify([name,grade]);const occurrence=seen.get(base)||0;seen.set(base,occurrence+1);
+  return{name,grade,total_count,grade_progress:gp,key:base+'#'+occurrence,color:COLORS[i%COLORS.length]};
  });
 }
-function demo(){
- const names=['小晴','宥辰','子恩','品妍','宇翔','芯語','柏睿','以安','承翰','沐希','奕帆','可欣','禹彤','皓宇','書妍','允樂','宸希','苡晴','昀哲','語芯','樂澄'];
- const totals=[100,100,93,86,81,76,70,65,61,57,53,49,45,45,38,31,25,20,14,8,0];
- return names.map((name,i)=>{let n=totals[i],gp={};GRADE_TARGETS.forEach((t,g)=>{gp['g'+(g+1)]=Math.min(t,n);n=Math.max(0,n-t);});
-  if(i===12)Object.assign(gp,{g1:18,g2:12,g3:8,g4:7,g5:0,g6:0});
-  return {name,grade:Math.max(1,6-Math.floor(i/4)),total_count:totals[i],grade_progress:gp};});
+function groupByProgress(rows){const map=new Map();rows.forEach((student,index)=>{if(!map.has(student.total_count))map.set(student.total_count,{total:student.total_count,members:[]});map.get(student.total_count).members.push({...student,index});});return [...map.values()].sort((a,b)=>a.total-b.total);}
+function representatives(group,focusKey,phase){let start=group.members.findIndex(m=>m.key===focusKey);if(start<0)start=phase%group.members.length;return Array.from({length:Math.min(3,group.members.length)},(_,i)=>group.members[(start+i)%group.members.length]);}
+function zoneFor(total){return ZONES.find(z=>total>=z.min&&total<=z.max);}
+function campPageFor(allGroups,total){const zone=zoneFor(total),matching=allGroups.filter(g=>g.total>=zone.min&&g.total<=zone.max),idx=matching.findIndex(g=>g.total===total),page=Math.floor(Math.max(0,idx)/5);return{zone,matching,page,pages:Math.ceil(matching.length/5),visible:matching.slice(page*5,page*5+5)};}
+function pointAt(total){return anchorPoints.get(total);}
+function preparePath(){const path=$('trail'),length=path.getTotalLength();for(let n=0;n<=100;n++){const p=path.getPointAtLength(length*n/100);anchorPoints.set(n,{x:p.x,y:p.y});}
+ [0,10,25,50,75,90].forEach(n=>{const p=pointAt(n);$('milestones').append(sv('text',{x:p.x,y:p.y+30,class:'milestone','text-anchor':'middle'},n+'本'));});
 }
-function cardPosition(i){if(i<7)return{x:28,y:153+i*104,w:360,h:98};if(i<14)return{x:1532,y:153+(i-7)*104,w:360,h:98};return{x:30+(i-14)*267,y:907,w:258,h:117};}
-function pointAt(total){const p=trail.getPointAtLength(trail.getTotalLength()*total/100);return{x:p.x+390,y:p.y+130};}
-// Keep exact progress on the route; only the avatar receives a visual offset.
-// Greedy spacing also separates nearby totals and the worst case: 21 equal totals.
-function avatarPositions(rows){const placed=[];return rows.map(r=>{const anchor=pointAt(r.total_count);let chosen=null;
- for(let ring=0;ring<12&&!chosen;ring++){
-  const candidates=ring===0?[[0,0]]:[[ring*49,0],[-ring*49,0],[0,ring*64],[0,-ring*64]];
-  if(ring>0)for(let dx=-ring;dx<=ring;dx++)candidates.push([dx*49,ring*64],[dx*49,-ring*64]);
-  for(const [dx,dy]of candidates){const q={x:anchor.x+dx,y:anchor.y+dy};if(q.x<425||q.x>1495||q.y<212||q.y>863)continue;
-   if(placed.every(p=>Math.abs(p.x-q.x)>=47||Math.abs(p.y-q.y)>=63)){chosen=q;break;}}
- }
- if(!chosen)throw new Error('小人位置配置失敗');placed.push(chosen);return{...chosen,anchor};});}
-function avatarSVG(color){return `<svg viewBox="0 0 44 58"><ellipse cx="22" cy="54" rx="19" ry="5" fill="#28492d" opacity=".25"/><path d="M12 44L10 53H19L21 43M25 43L27 53H36L32 42" fill="#6c533a" stroke="#4b4930" stroke-width="2"/><path d="M10 32Q22 25 34 32L35 45Q22 51 9 45Z" fill="${color}" stroke="#284d3e" stroke-width="2"/><path d="M14 34L30 46" stroke="#f3d272" stroke-width="4"/><ellipse cx="22" cy="23" rx="14" ry="15" fill="#ffdaa2" stroke="#a57743" stroke-width="2"/><path d="M7 19Q4 2 21 2Q34 1 38 18L27 13Z" fill="${color}" stroke="#284d3e" stroke-width="2"/><path d="M10 14L15 10" stroke="#e8f4ba" stroke-width="3" stroke-linecap="round"/><circle cx="17" cy="24" r="2" fill="#3a3e35"/><circle cx="27" cy="24" r="2" fill="#3a3e35"/><path d="M19 30Q22 32 25 30" fill="none" stroke="#a66b4c" stroke-width="1.6"/><path d="M5 32L1 37L4 47L11 43L12 34Z" fill="#efcd7a" stroke="#8e713d" stroke-width="2"/></svg>`;}
-function render(rows){
- const positions=avatarPositions(rows);
- $('hudLayer').replaceChildren();$('avatars').replaceChildren();$('connections').replaceChildren();view=[];
- rows.forEach((r,i)=>{
-  const c=COLORS[i%COLORS.length],p=positions[i],cp=cardPosition(i),done=r.total_count===100;
-  const card=node('article','hud'+(i>=14?' bottom':'')+(done?' champion':''));
-  card.style.cssText=`left:${cp.x}px;top:${cp.y}px;--color:${c}`;card.tabIndex=0;
-  const top=node('div','hudTop');top.append(node('span','number',String(i+1).padStart(2,'0')),node('span','name',r.name),node('span','grade',r.grade+'年級'));
-  const count=node('span','count');count.append(node('b','',r.total_count),document.createTextNode('/100本'));top.append(count);card.append(top);
-  const badges=node('div','badges');GRADE_TARGETS.forEach((target,g)=>{const n=r.grade_progress['g'+(g+1)],clear=n>=target,b=node('div','badge'+(clear?' clear':''));b.append(node('strong','',(clear?'✦ ':'')+'G'+(g+1)),node('span','',clear?'CLEAR':`${n}/${target}`));b.title=`${g+1} 年級：${n}/${target} 本${clear?'・認證完成':''}`;badges.append(b);});card.append(badges);
-  card.setAttribute('aria-label',`${r.name}，${r.grade}年級，${r.total_count}本。`+GRADE_TARGETS.map((t,g)=>`${g+1}年級 ${r.grade_progress['g'+(g+1)]}/${t}本`).join('，'));
-  card.addEventListener('pointerenter',()=>focus(i));card.addEventListener('focus',()=>focus(i));card.addEventListener('click',()=>focus(i));$('hudLayer').append(card);
-  const av=node('div','avatar'+(done?' done':''));av.style.cssText=`left:${p.x}px;top:${p.y}px;--color:${c}`;av.innerHTML=avatarSVG(c);av.append(node('span','mini',i+1));$('avatars').append(av);
-  const start=i<7?{x:cp.x+cp.w,y:cp.y+48}:i<14?{x:cp.x,y:cp.y+48}:{x:cp.x+cp.w/2,y:cp.y};
-  const line=svgNode('path',{class:'lead',d:`M${start.x} ${start.y} L${p.x} ${p.y-25}`});$('connections').append(line);
-  // Anchor dot and short tether retain the true route location after collision offset.
-  $('connections').append(svgNode('path',{d:`M${p.anchor.x} ${p.anchor.y}L${p.x} ${p.y}`,stroke:c,'stroke-width':2,opacity:.6}),svgNode('circle',{cx:p.anchor.x,cy:p.anchor.y,r:4,fill:c,stroke:'#fff8d6','stroke-width':2}));
-  view.push({card,av,line});
- });
- $('students').textContent=rows.length;$('books').textContent=rows.reduce((s,r)=>s+r.total_count,0).toLocaleString('zh-TW');const winners=rows.filter(r=>r.total_count===100).length;$('cleared').textContent=winners;$('summit').classList.toggle('summit-on',winners>0);
- focus(focusIndex<0?0:focusIndex%rows.length);
+function hero(color,width=60,height=80){const s=sv('svg',{viewBox:'0 0 60 80',width,height,class:'hero','aria-hidden':'true',style:'color:'+color});s.append(sv('use',{href:'#hero',width:60,height:80}));return s;}
+function buildOverview(){const frag=document.createDocumentFragment();rosterNodes=[];
+ students.forEach((s,i)=>{const card=el('button','student'+(s.total_count===100?' won':''));card.type='button';card.title=s.name+' · '+s.grade+'年級 · '+s.total_count+'/100 本';card.setAttribute('aria-label',card.title+'，顯示詳細認證');const top=el('div','student-top'),name=el('span','student-name',s.name),count=el('span','student-score',s.total_count);count.append(el('small','', '本'));top.append(name,count);const bottom=el('div','student-bottom');bottom.append(el('span','',s.grade+'年級'));const dots=el('span','mini-badges');TARGETS.forEach((t,g)=>{const dot=el('i',s.grade_progress['g'+(g+1)]>=t?'clear':'');dot.title='G'+(g+1)+' '+s.grade_progress['g'+(g+1)]+'/'+t;dots.append(dot);});bottom.append(dots);const bar=el('i','student-bar');bar.style.width=s.total_count+'%';card.append(top,bottom,bar);card.addEventListener('click',()=>setFocus(i,true));frag.append(card);rosterNodes.push(card);});$('roster').replaceChildren(frag);
 }
-function focus(i){focusIndex=i;view.forEach((v,j)=>{v.card.classList.toggle('active',i===j);v.av.classList.toggle('active',i===j);v.line.classList.toggle('active',i===j);});}
-function status(message,type=''){$('status').textContent=message;$('status').className='status '+type;}
-function hhmm(date){return date.toLocaleTimeString('zh-TW',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}
-async function refresh(){
- if(!API_URL||busy)return;busy=true;const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),12_000);
- try{
-  const response=await fetch(API_URL,{signal:controller.signal,cache:'no-store',redirect:'follow'});
-  if(!response.ok)throw new Error('HTTP '+response.status);
-  const next=normalize(await response.json());
-  if(JSON.stringify(next)!==JSON.stringify(roster)){render(next);roster=next;}
-  lastSuccess=new Date();status('已同步 '+hhmm(lastSuccess)+' · 每30秒更新');
- }catch(error){status(roster.length?'更新失敗 · 保留 '+hhmm(lastSuccess)+' 的資料':'讀取失敗 · 尚無正式資料','error');console.warn('閱讀資料更新失敗：',error.message);
- }finally{clearTimeout(timeout);busy=false;clearTimeout(refreshTimer);refreshTimer=setTimeout(refresh,REFRESH_MS);}
+function buildAnchors(){const frag=document.createDocumentFragment();groups.forEach(g=>{const p=pointAt(g.total);const dot=sv('circle',{cx:p.x,cy:p.y,r:7,class:'group-dot','data-total':g.total});dot.append(sv('title',{},g.total+' 本・'+g.members.length+' 位勇者'));frag.append(dot);});$('anchors').replaceChildren(frag);}
+function renderFeature(s){$('focusIndex').textContent=String(current+1).padStart(2,'0')+' / '+students.length;$('featureName').textContent=s.name;$('featureName').title=s.name;$('featureName').style.fontSize=s.name.length>5?'28px':'37px';$('featureGrade').textContent=s.grade+' 年級 · '+(s.total_count===100?'百閱勇者已攻頂！':'每一本，都讓你更接近山頂');$('featureCount').textContent=s.total_count;$('featureAvatar').replaceChildren(hero(s.color));$('featureProgress').style.width=s.total_count+'%';
+ const next=[10,25,50,75,100].find(n=>n>s.total_count);$('nextGoal').textContent=next?'距離 '+next+' 本里程碑，還差 '+(next-s.total_count)+' 本':'100 本達成，恭喜完成閱讀遠征！';
+ const done=TARGETS.filter((t,g)=>s.grade_progress['g'+(g+1)]>=t).length;$('badgeSummary').textContent='年級認證 '+done+' / 6';const frag=document.createDocumentFragment();TARGETS.forEach((t,g)=>{const n=s.grade_progress['g'+(g+1)],clear=n>=t,b=el('div','badge'+(clear?' clear':''));b.append(el('b','',(clear?'✓ ':'')+'G'+(g+1)),el('span','',clear?'CLEAR':n+'/'+t));b.title=(g+1)+'年級 '+n+'/'+t+' 本';frag.append(b);});$('badges').replaceChildren(frag);
 }
-function tick(){$('clock').textContent=new Date().toLocaleString('zh-TW',{month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false});}tick();setInterval(tick,1000);
-for(let n=0;n<=100;n+=10){const p=pointAt(n);$('milestones').append(svgNode('text',{x:p.x-390+22,y:p.y-130+8,class:'milestone'}));$('milestones').lastChild.textContent=n;}
-$('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{$('fullscreen').textContent='請按 F11';}});
-document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'⛶ 離開全螢幕':'⛶ 全螢幕';fit();});
-addEventListener('online',()=>{clearTimeout(refreshTimer);refresh();});
-setInterval(()=>{if(view.length)focus((focusIndex+1)%view.length);},6000);
-if(API_URL){$('students').textContent='—';status('正在讀取正式資料…');refresh();}else{roster=normalize(demo());render(roster);}
+function renderCamps(s){const page=campPageFor(groups,s.total_count),group=groups.find(g=>g.total===s.total_count);$('campHeading').textContent=page.zone.name+' · '+(page.zone.min===page.zone.max?'100':page.zone.min+'–'+page.zone.max)+' 本';$('campHint').textContent='同本數共用營地 · 這裡展示成員，山路圓點標示真實位置';$('campPage').textContent=page.matching.length+' 個營地'+(page.pages>1?' · 第 '+(page.page+1)+' / '+page.pages+' 頁':'')+' · 自動跟隨勇者焦點';const frag=document.createDocumentFragment();
+ page.visible.forEach(g=>{const active=g.total===s.total_count,card=el('button','camp-card'+(active?' active':''));card.type='button';const head=el('div','camp-title');head.append(el('b','',g.total+' 本'),el('span','',g.members.length+' 位勇者'));const people=el('div','camp-people'),reps=representatives(g,s.key,current);reps.forEach(m=>people.append(hero(m.color,43,58)));if(g.members.length>3)people.append(el('span','camp-more','＋'+(g.members.length-3)));const names=el('span','camp-names',reps.map(m=>m.name).join('・'));names.title=g.members.map(m=>m.name).join('、');card.append(head,people,names,el('div','camp-caption',g.members.length>3?'成員輪流展示':'一起向下一本前進'));card.setAttribute('aria-label',g.total+'本，'+g.members.length+'位勇者，'+g.members.map(m=>m.name).join('、'));card.addEventListener('click',()=>setFocus(g.members[0].index,true));frag.append(card);});$('camps').replaceChildren(frag);return group;
+}
+function renderParty(s,group){const p=pointAt(group.total),reps=representatives(group,s.key,current),frag=document.createDocumentFragment();
+ // True anchor never moves. Only the current group is expanded; other groups remain dots.
+ frag.append(sv('circle',{cx:p.x,cy:p.y,r:14,class:'focus-halo'}),sv('circle',{cx:p.x,cy:p.y,r:5,fill:'#3c784a'}));
+ // At 100, a horizontal celebration platform sits beside the egg, linked to the exact endpoint.
+ const summitSide=p.y<235;
+ const center=summitSide?{x:930,y:p.y}:{x:p.x,y:p.y};
+ if(summitSide)frag.append(sv('path',{d:`M${p.x} ${p.y}H${center.x}`,class:'active-route-line'}));
+ frag.append(sv('ellipse',{cx:center.x,cy:center.y,rx:reps.length*24+12,ry:11,fill:'#e2d298',stroke:'#fff7d2','stroke-width':3}));
+ reps.forEach((m,i)=>{const h=hero(m.color,44,59);h.setAttribute('x',center.x+(i-(reps.length-1)/2)*42-22);h.setAttribute('y',center.y-59);frag.append(h);});
+ const labelWidth=264,right=center.x+90+labelWidth<1150;const lx=right?center.x+90:center.x-90-labelWidth,ly=Math.max(166,Math.min(500,center.y-64));
+ // A short local callout replaces the old full-screen web of lines.
+ if(!summitSide)frag.append(sv('path',{d:`M${center.x+ (right?55:-55)} ${center.y-17}L${right?lx:lx+labelWidth} ${ly+34}`,class:'active-route-line'}));
+ frag.append(sv('rect',{x:lx,y:ly,width:labelWidth,height:66,rx:16,fill:'#fff9dd',stroke:'#c5a554','stroke-width':3}));
+ const label=sv('text',{x:lx+15,y:ly+28,class:'active-name'},s.name+' · '+s.total_count+' 本');if(s.name.length>6){label.setAttribute('textLength',labelWidth-30);label.setAttribute('lengthAdjust','spacingAndGlyphs');}frag.append(label,sv('text',{x:lx+15,y:ly+51,class:'active-note'},group.members.length===1?'勇者前進中':(group.total===100?'共同攻頂':'同分營地')+' · '+group.members.length+' 位勇者'+(group.members.length>3?' · ＋'+(group.members.length-3):'')));$('activeParty').replaceChildren(frag);
+}
+function resetSweep(){const sweep=$('sweep');sweep.style.animation='none';void sweep.offsetWidth;sweep.style.animation='';sweep.classList.toggle('paused',paused||!students.length);}
+function setFocus(index,restart=false){if(!students.length)return;current=(index+students.length)%students.length;const s=students[current];rosterNodes.forEach((node,i)=>{node.classList.toggle('active',i===current);node.setAttribute('aria-pressed',String(i===current));});renderFeature(s);const group=renderCamps(s);renderParty(s,group);resetSweep();if(restart)startRotation();}
+function startRotation(){clearInterval(rotationTimer);if(!paused&&students.length)rotationTimer=setInterval(()=>setFocus(current+1),FOCUS_MS);}
+function acceptData(next){const oldKey=students[current]?.key,oldCurrent=current;students=next;groups=groupByProgress(students);const found=oldKey?students.findIndex(s=>s.key===oldKey):-1;current=found<0?Math.min(oldCurrent,students.length-1):found;buildOverview();buildAnchors();$('studentCount').textContent=students.length;$('bookCount').textContent=students.reduce((sum,s)=>sum+s.total_count,0).toLocaleString('zh-TW');const won=students.filter(s=>s.total_count===100).length;$('winnerCount').textContent=won;$('scene').classList.toggle('winning',won>0);$('summitBanner').classList.toggle('won',won>0);$('summitBanner').textContent=won?'✦ 100 本 · '+won+' 位勇者已攻頂':'✦ 100 本・風魚之蛋';$('loading').hidden=true;setFocus(current);startRotation();}
+function status(message,type=''){$('status').textContent=message;$('status').title=message;$('status').className='status '+type;}
+function time(date){return date.toLocaleTimeString('zh-TW',{timeZone:'Asia/Taipei',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+async function refresh(){if(!API_URL||busy)return;busy=true;const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),15000);
+ try{const response=await fetch(API_URL,{signal:controller.signal,cache:'no-store',redirect:'follow'});if(!response.ok)throw new Error('HTTP '+response.status);const raw=await response.text();let payload;try{payload=JSON.parse(raw);}catch{throw new Error('API 未回傳 JSON，請檢查網址及部署權限');}const next=normalize(payload);if(JSON.stringify(next)!==JSON.stringify(students))acceptData(next);lastSuccess=new Date();status('已同步 '+time(lastSuccess)+' · 每 30 秒更新');}
+ catch(error){const reason=error.name==='AbortError'?'讀取逾時，稍後自動重試':error instanceof TypeError?'網路連線失敗，請檢查網路及 API 權限':error.message;status((lastSuccess?'保留 '+time(lastSuccess)+' 的資料 · ':'')+reason,'error');if(!students.length){$('loadingTitle').textContent='尚未取得閱讀資料';$('loadingText').textContent=reason;$('loading').hidden=false;}console.warn('閱讀資料：',reason);}
+ finally{clearTimeout(timeout);busy=false;}
+}
+function demo(){const totals=[2,1,4,1,3,2,2,1,...Array(13).fill(0)];return totals.map((n,i)=>({name:'勇者'+String(i+1).padStart(2,'0'),grade:6-Math.floor(i/4),total_count:n,grade_progress:{g1:n,g2:0,g3:0,g4:0,g5:0,g6:0}}));}
+function clock(){$('clock').textContent=new Date().toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false});}
+function init(){fit();preparePath();clock();setInterval(clock,1000);addEventListener('resize',fit);addEventListener('online',refresh);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+ $('prev').addEventListener('click',()=>setFocus(current-1,true));$('next').addEventListener('click',()=>setFocus(current+1,true));$('pause').addEventListener('click',()=>{paused=!paused;$('pause').textContent=paused?'▶ 繼續輪播':'Ⅱ 暫停輪播';$('pause').setAttribute('aria-pressed',String(paused));$('rotationLabel').textContent=paused?'已暫停輪播 · 資料持續同步':'每 8 秒輪播一位勇者';resetSweep();startRotation();});
+ $('fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{$('fullscreen').textContent='請按 F11';}});document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'⛶ 離開全螢幕':'⛶ 全螢幕';fit();});
+ if(API_URL){refresh();setInterval(refresh,REFRESH_MS);}else{acceptData(normalize(demo()));status('示範模式 · 虛構學生資料','demo');}
+}
+init();
+})();
 </script>
 </body>
 </html>
