@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校園冒險王國 - 耀西手作世界電視牆展示系統</title>
+  <title>校園冒險王國 </title>
   <style>
     /* ==========================================
        1. 全局設定：耀西的手工世界 (Yoshi's Crafted World)
@@ -19,11 +19,11 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      /* 麻布/瓦楞紙手作風格背景 */
+      /* 麻布/瓦楞紙點點質感背景 */
       background-color: #4bacd2;
       background-image: 
-        radial-gradient(rgba(255, 255, 255, 0.25) 18%, transparent 19%),
-        radial-gradient(rgba(255, 255, 255, 0.25) 18%, transparent 19%);
+        radial-gradient(rgba(255, 255, 255, 0.3) 18%, transparent 19%),
+        radial-gradient(rgba(255, 255, 255, 0.3) 18%, transparent 19%);
       background-size: 40px 40px;
       background-position: 0 0, 20px 20px;
       color: #3e2723;
@@ -47,8 +47,8 @@
 
     /* 頁首：手工布條與彩色紙膠帶風格 */
     header {
-      height: 110px;
-      padding: 0 40px;
+      height: 100px;
+      padding: 0 30px;
       background: #fff6d6;
       border-bottom: 6px dashed #795548;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -57,6 +57,7 @@
       align-items: center;
       z-index: 10;
       position: relative;
+      flex-shrink: 0;
     }
 
     /* 手作彩色紙膠帶 (Washi Tape) */
@@ -80,10 +81,10 @@
     }
 
     .header-title h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: 900;
       color: #d84315;
-      text-shadow: 3px 3px 0px #ffe0b2, 5px 5px 0px #5d4037;
+      text-shadow: 2px 2px 0px #ffe0b2, 4px 4px 0px #5d4037;
       letter-spacing: 2px;
     }
 
@@ -91,9 +92,9 @@
       background: #ffb74d;
       color: #4e342e;
       border: 3px solid #5d4037;
-      padding: 6px 22px;
+      padding: 6px 20px;
       border-radius: 25px;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 900;
       box-shadow: 4px 4px 0px #5d4037;
       outline: 2px dashed #fff;
@@ -103,12 +104,12 @@
     .ticker-status {
       display: flex;
       align-items: center;
-      gap: 15px;
-      font-size: 1.15rem;
+      gap: 12px;
+      font-size: 1.1rem;
       font-weight: 900;
       color: #4e342e;
       background: #ffe0b2;
-      padding: 8px 20px;
+      padding: 8px 18px;
       border-radius: 30px;
       border: 3px solid #8d6e63;
       box-shadow: 3px 3px 0px #5d4037;
@@ -129,7 +130,7 @@
       100% { transform: scale(0.8); opacity: 0.8; }
     }
 
-    /* 主舞台：16:9 展示區 */
+    /* 主舞台 */
     main {
       flex: 1;
       position: relative;
@@ -146,7 +147,7 @@
       bottom: 20px;
       opacity: 0;
       transform: translateY(15px) scale(0.98);
-      transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: opacity 0.6s ease, transform 0.6s ease;
       pointer-events: none;
       display: flex;
       flex-direction: column;
@@ -158,7 +159,7 @@
       pointer-events: auto;
     }
 
-    /* 瓦楞紙與手作卡片容器 Grid (2x4 排版) */
+    /* 瓦楞紙卡片容器 Grid (2x4 排版) */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -173,20 +174,16 @@
       background: #fffdf5;
       border: 4px solid #795548;
       border-radius: 20px;
-      box-shadow: 
-        8px 8px 0px #4e342e,
-        12px 12px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 8px 8px 0px #4e342e, 12px 12px 15px rgba(0, 0, 0, 0.2);
       padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      /* 模擬手縫虛線邊緣 */
       outline: 2px dashed #bcaaa4;
       outline-offset: -7px;
     }
 
-    /* 卡片紙膠帶裝飾 */
     .crafted-card::after {
       content: "";
       position: absolute;
@@ -201,7 +198,6 @@
       border-right: 2px dashed rgba(255,255,255,0.6);
     }
 
-    /* 手作鈕扣 */
     .button-decor {
       position: absolute;
       top: 10px;
@@ -214,7 +210,6 @@
       box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
-    /* 學生基本資料抬頭 (75吋電視大字體) */
     .student-header {
       display: flex;
       justify-content: space-between;
@@ -225,7 +220,7 @@
     }
 
     .student-name {
-      font-size: 2.2rem; /* 大字體 ~36px */
+      font-size: 2.2rem;
       font-weight: 900;
       color: #3e2723;
       text-shadow: 1px 1px 0px #fff;
@@ -241,9 +236,7 @@
       border: 2px solid #8d6e63;
     }
 
-    /* ==========================================
-       2. 活動 1：小豬撲滿 (手縫不織布小豬)
-       ========================================== */
+    /* 活動 1：小豬撲滿 */
     .piggy-content {
       display: flex;
       align-items: center;
@@ -272,7 +265,7 @@
     }
 
     .points-highlight {
-      font-size: 2.6rem; /* 主要數字 ~44px */
+      font-size: 2.6rem;
       font-weight: 900;
       color: #e65100;
       text-shadow: 1px 1px 0px #fff;
@@ -290,9 +283,7 @@
       text-align: center;
     }
 
-    /* ==========================================
-       3. 活動 2：百閱挑戰 (木紋積木與剪紙山)
-       ========================================== */
+    /* 活動 2：百閱挑戰 */
     .reading-content {
       display: flex;
       flex-direction: column;
@@ -313,7 +304,7 @@
     .mountain-fill {
       height: 100%;
       background: linear-gradient(90deg, #81c784, #388e3c);
-      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: width 1s ease;
     }
 
     .flag-100 {
@@ -352,9 +343,7 @@
       color: #2e7d32;
     }
 
-    /* ==========================================
-       4. 活動 3：健康儲蓄 (雙軌手作麻繩與飛盤)
-       ========================================== */
+    /* 活動 3：健康儲蓄 */
     .health-tracks {
       display: flex;
       flex-direction: column;
@@ -388,7 +377,7 @@
 
     .track-bar-fill {
       height: 100%;
-      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: width 1s ease;
     }
 
     .fill-rope { background: linear-gradient(90deg, #ff8a65, #f4511e); }
@@ -401,10 +390,43 @@
       text-align: right;
     }
 
-    /* ==========================================
-       5. 總覽區 (Overview Grid)
-       ========================================== */
+    /* 總覽區 */
     .overview-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 3
+      gap: 30px;
+      height: 100%;
+    }
+
+    .overview-box {
+      background: #fffdf5;
+      border: 6px solid #5d4037;
+      border-radius: 30px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 10px 10px 0px #3e2723;
+      outline: 3px dashed #bcaaa4;
+      outline-offset: -12px;
+      position: relative;
+    }
+
+    .overview-icon { font-size: 4.8rem; margin-bottom: 10px; }
+    .overview-title { font-size: 2.2rem; font-weight: 900; color: #5d4037; }
+    .overview-value { font-size: 4.2rem; font-weight: 900; color: #e65100; margin: 10px 0; text-shadow: 2px 2px 0px #fff; }
+
+    /* 頁尾 */
+    footer {
+      height: 50px;
+      background: #3e2723;
+      color: #ffe0b2;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-size: 1.35rem;
+      font-weight: 900;
+      border-top: 5px solid #ffb74d;
+      z-index: 10;
